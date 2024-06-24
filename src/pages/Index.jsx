@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, VStack, Heading, Text, Image, Button, useColorModeValue } from "@chakra-ui/react";
 import { FaEdit, FaHeart, FaComment } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 const BlogPost = ({ title, excerpt, imageUrl }) => {
   const bg = useColorModeValue("gray.100", "gray.700");
@@ -15,7 +16,8 @@ const BlogPost = ({ title, excerpt, imageUrl }) => {
   );
 };
 
-const Index = () => {
+const Index = ({ posts }) => {
+  const navigate = useNavigate();
   const headerBg = useColorModeValue("blue.500", "blue.200");
   const headerColor = useColorModeValue("white", "gray.800");
 
@@ -29,24 +31,17 @@ const Index = () => {
       </Box>
       <Container maxW="container.xl">
         <VStack spacing={8} align="stretch">
-          <Button leftIcon={<FaEdit />} colorScheme="green" alignSelf="flex-end">
+          <Button leftIcon={<FaEdit />} colorScheme="green" alignSelf="flex-end" onClick={() => navigate('/new-post')}>
             New Post
           </Button>
-          <BlogPost 
-            title="My First Blog Post" 
-            excerpt="This is the beginning of my blogging journey. Join me as I share my thoughts and experiences!"
-            imageUrl="https://via.placeholder.com/800x400"
-          />
-          <BlogPost 
-            title="The Art of Coding" 
-            excerpt="Coding is not just about writing lines of code, it's about solving problems and creating solutions."
-            imageUrl="https://via.placeholder.com/800x400"
-          />
-          <BlogPost 
-            title="Exploring Nature" 
-            excerpt="There's nothing quite like the peace and tranquility of nature. Let's explore some beautiful landscapes together."
-            imageUrl="https://via.placeholder.com/800x400"
-          />
+          {posts.map((post, index) => (
+            <BlogPost 
+              key={index}
+              title={post.title} 
+              excerpt={post.excerpt}
+              imageUrl={post.imageUrl}
+            />
+          ))}
         </VStack>
       </Container>
     </Box>
