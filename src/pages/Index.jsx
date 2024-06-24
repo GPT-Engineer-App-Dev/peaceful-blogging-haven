@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Container, VStack, Heading, Text, Image, Button, useColorModeValue } from "@chakra-ui/react";
-import { FaEdit, FaHeart, FaComment } from "react-icons/fa";
+import { FaEdit, FaHeart, FaComment, FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-const BlogPost = ({ title, excerpt, imageUrl }) => {
+const BlogPost = ({ title, excerpt, imageUrl, onDelete }) => {
   const bg = useColorModeValue("gray.100", "gray.700");
   const textColor = useColorModeValue("gray.800", "gray.100");
   return (
@@ -12,12 +12,13 @@ const BlogPost = ({ title, excerpt, imageUrl }) => {
       <Heading as="h3" size="md" mb={2} color={textColor}>{title}</Heading>
       <Text mb={3} color={textColor}>{excerpt}</Text>
       <Button leftIcon={<FaHeart />} mr={2} size="sm">Like</Button>
-      <Button leftIcon={<FaComment />} size="sm">Comment</Button>
+      <Button leftIcon={<FaComment />} mr={2} size="sm">Comment</Button>
+      <Button leftIcon={<FaTrash />} size="sm" colorScheme="red" onClick={onDelete}>Delete</Button>
     </Box>
   );
 };
 
-const Index = ({ posts }) => {
+const Index = ({ posts, deletePost }) => {
   const navigate = useNavigate();
   const headerBg = useColorModeValue("blue.500", "blue.700");
   const headerColor = useColorModeValue("white", "gray.100");
@@ -42,6 +43,7 @@ const Index = ({ posts }) => {
               title={post.title} 
               excerpt={post.excerpt}
               imageUrl={post.imageUrl}
+              onDelete={() => deletePost(index)}
             />
           ))}
         </VStack>

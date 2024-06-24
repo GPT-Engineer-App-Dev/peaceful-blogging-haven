@@ -43,12 +43,17 @@ function App() {
     setPosts([newPost, ...posts]);
   };
 
+  const deletePost = (index) => {
+    const updatedPosts = posts.filter((_, i) => i !== index);
+    setPosts(updatedPosts);
+  };
+
   return (
     <>
       <ColorModeToggle />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index posts={posts} />} />
+          <Route exact path="/" element={<Index posts={posts} deletePost={deletePost} />} />
           <Route path="/new-post" element={<NewPost addPost={addPost} />} />
         </Routes>
       </Router>
