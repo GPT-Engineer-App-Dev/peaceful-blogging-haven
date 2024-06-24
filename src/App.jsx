@@ -1,7 +1,24 @@
 import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { useColorMode, Button } from "@chakra-ui/react";
+import { FaSun, FaMoon } from "react-icons/fa";
 import Index from "./pages/Index.jsx";
 import NewPost from "./pages/NewPost.jsx";
+
+const ColorModeToggle = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <Button
+      onClick={toggleColorMode}
+      position="fixed"
+      top="4"
+      right="4"
+      zIndex="docked"
+    >
+      {colorMode === "light" ? <FaMoon /> : <FaSun />}
+    </Button>
+  );
+};
 
 function App() {
   const [posts, setPosts] = useState([
@@ -27,12 +44,15 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Index posts={posts} />} />
-        <Route path="/new-post" element={<NewPost addPost={addPost} />} />
-      </Routes>
-    </Router>
+    <>
+      <ColorModeToggle />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Index posts={posts} />} />
+          <Route path="/new-post" element={<NewPost addPost={addPost} />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

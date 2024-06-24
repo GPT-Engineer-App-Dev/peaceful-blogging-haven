@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Container, VStack, Heading, FormControl, FormLabel, Input, Textarea, Button, useToast } from "@chakra-ui/react";
+import { Box, Container, VStack, Heading, FormControl, FormLabel, Input, Textarea, Button, useToast, useColorModeValue } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 
 const NewPost = ({ addPost }) => {
+  const bg = useColorModeValue("white", "gray.800");
+  const color = useColorModeValue("gray.800", "white");
   const [title, setTitle] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -33,7 +35,7 @@ const NewPost = ({ addPost }) => {
   };
 
   return (
-    <Box>
+    <Box bg={bg} color={color} minHeight="100vh">
       <Container maxW="container.md" py={8}>
         <VStack spacing={8} align="stretch">
           <Heading as="h1" size="xl">Create New Blog Post</Heading>
