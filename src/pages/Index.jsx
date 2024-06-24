@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 const BlogPost = ({ title, excerpt, imageUrl }) => {
   const bg = useColorModeValue("gray.100", "gray.700");
+  const textColor = useColorModeValue("gray.800", "gray.100");
   return (
     <Box bg={bg} p={5} borderRadius="md" boxShadow="md" mb={4}>
       <Image src={imageUrl} alt={title} borderRadius="md" mb={3} />
-      <Heading as="h3" size="md" mb={2}>{title}</Heading>
-      <Text mb={3}>{excerpt}</Text>
+      <Heading as="h3" size="md" mb={2} color={textColor}>{title}</Heading>
+      <Text mb={3} color={textColor}>{excerpt}</Text>
       <Button leftIcon={<FaHeart />} mr={2} size="sm">Like</Button>
       <Button leftIcon={<FaComment />} size="sm">Comment</Button>
     </Box>
@@ -18,11 +19,12 @@ const BlogPost = ({ title, excerpt, imageUrl }) => {
 
 const Index = ({ posts }) => {
   const navigate = useNavigate();
-  const headerBg = useColorModeValue("blue.500", "blue.200");
-  const headerColor = useColorModeValue("white", "gray.800");
+  const headerBg = useColorModeValue("blue.500", "blue.700");
+  const headerColor = useColorModeValue("white", "gray.100");
+  const bodyBg = useColorModeValue("white", "gray.800");
 
   return (
-    <Box>
+    <Box bg={bodyBg} minHeight="100vh">
       <Box bg={headerBg} color={headerColor} py={8} mb={8}>
         <Container maxW="container.xl">
           <Heading as="h1" size="2xl">My Personal Blog</Heading>
